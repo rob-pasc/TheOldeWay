@@ -18,28 +18,20 @@ app.post('/players', async (req, res) => {
     }
 });  
 
-app.get('/', async (req, res) => {
-  try {
-    const result = await db.query('SELECT NOW()');
-    res.send(`Database connected! Server time: ${result.rows[0].now}`);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Error connecting to the database');
-  }
+app.get('/', (req, res) => {
+  res.send("API is running. Use /players for operations.");
 });
 
-// app.get('/players', async (req, res) => {
-//     try {
-//       const result = await db.query('SELECT * FROM players');
-//       res.json(result.rows);
-//     } catch (err) {
-//       console.error(err);
-//       res.status(500).send('Error retrieving players');
-//     }
-//   });
+app.get('/players', async (req, res) => {
+    try {
+      const result = await db.query('SELECT * FROM players');
+      res.json(result.rows);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error retrieving players');
+    }
+  });
   
-
-// Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
