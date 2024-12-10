@@ -22,6 +22,10 @@ app.get('/', (req, res) => {
   res.send("API is running. Use /players for operations.");
 });
 
+app.get('/ich', (req, res) => {
+  res.send("Du bist sehr cool, Bruder!");
+});
+
 app.get('/players', async (req, res) => {
     try {
       const result = await db.query('SELECT * FROM players');
