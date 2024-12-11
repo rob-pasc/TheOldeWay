@@ -3,7 +3,7 @@ const cors = require('cors');
 const db = require('./db/db');
 const path = require('path');
 const { spawn } = require('child_process');
-const bcrypt = require('bcrypt'); // For password hashing
+const bcrypt = require('bcryptjs'); // For password hashing
 const jwt = require('jsonwebtoken'); // Optional for session tokens
 
 const SECRET_KEY = process.env.SECRET_KEY; // Use an env variable for production  || 'your_secret_key'
