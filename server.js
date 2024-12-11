@@ -1,10 +1,9 @@
 const express = require('express');
+const cors = require('cors');
 const db = require('./db');
 
-const cors = require('cors');
-app.use(cors());
-
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.post('/players', async (req, res) => {
