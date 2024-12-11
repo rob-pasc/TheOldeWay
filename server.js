@@ -41,20 +41,33 @@ app.get('/players', async (req, res) => {
 });
 
 const runSetupScript = (scriptName) => {
-  const scriptPath = path.join(__dirname, 'db', scriptName);
-  const child = spawn('node', [scriptPath], { stdio: 'inherit' });
-  child.on('close', (code) => {
-    if (code !== 0) {
-      console.error(`Script ${scriptName} exited with code ${code}`);
-    } else {
-      console.log(`Script ${scriptName} completed successfully.`);
-    }
+  return new Promise((resolve, reject) => {
+    const scriptPath = path.join(__dirname, 'db', scriptName);
+    const child = spawn('node', [scriptPath], { stdio: 'inherit' });
+
+    child.on('close', (code) => {
+      if (code !== 0) {
+        console.error(`Script ${scriptName} exited with code ${code}`);
+        reject(new Error(`Script ${scriptName} failed`));
+      } else {
+        console.log(`Script ${scriptName} completed successfully.`);
+        resolve();
+      }
+    });
   });
 };
+
+(async () => {
+  try {
+    await runSetupScript('createTables.js');
+    await runSetupScript('seedData.js');
+    console.log("Database setup completed successfully.");
+  } catch (err) {
+    console.error("Database setup failed:", err);
+  }
+})();
 
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
-runSetupScript('createTables.js');
-runSetupScript('seedData.js');
