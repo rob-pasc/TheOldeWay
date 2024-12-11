@@ -1,0 +1,21 @@
+{
+    "name": "frontend",
+    "version": "1.0.0",
+    "description": "Frontend for the card game project",
+    "main": "index.js",
+    "scripts": {
+      "start": "http-server public",
+      "dev": "concurrently \"npm run start\""
+    },
+    "dependencies": {
+      "axios": "^1.5.0",
+      "bootstrap": "^5.3.0"
+    },
+    "devDependencies": {
+      "http-server": "^14.1.1",
+      "concurrently": "^7.6.0"
+    },
+    "author": "Your Name",
+    "license": "ISC"
+  }
+  
