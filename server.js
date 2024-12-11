@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const db = require('./db');
+const db = require('./db/db');
+const path = require('path');
+const { spawn } = require('child_process');
 
 const app = express();
 app.use(cors());
@@ -29,16 +31,30 @@ app.get('/ich', (req, res) => {
 });
 
 app.get('/players', async (req, res) => {
-    try {
-      const result = await db.query('SELECT * FROM players');
-      res.json(result.rows);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Error retrieving players');
+  try {
+    const result = await db.query('SELECT * FROM players');
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving players');
+  }
+});
+
+const runSetupScript = (scriptName) => {
+  const scriptPath = path.join(__dirname, 'db', scriptName);
+  const child = spawn('node', [scriptPath], { stdio: 'inherit' });
+  child.on('close', (code) => {
+    if (code !== 0) {
+      console.error(`Script ${scriptName} exited with code ${code}`);
+    } else {
+      console.log(`Script ${scriptName} completed successfully.`);
     }
   });
-  
+};
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+runSetupScript('createTables.js');
+runSetupScript('seedData.js');
