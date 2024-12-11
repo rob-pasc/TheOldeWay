@@ -6,7 +6,8 @@ const seedData = async () => {
     await db.query(`
         INSERT INTO players (username, email, password_hash) VALUES
         ('Player1', 'player1@example.com', 'hashedpassword1'),
-        ('Player2', 'player2@example.com', 'hashedpassword2');
+        ('Player2', 'player2@example.com', 'hashedpassword2'),
+        ('Player3', 'player3@example.com', 'hashedpassword3');
     `);
 
     // Insert sample games
