@@ -3,7 +3,7 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('js/service-worker.js').then(
       // registration => console.log('ServiceWorker registered:', registration),
       // err => console.error('ServiceWorker registration failed:', err)
-      // registration => alert('ServiceWorker registered:', registration),
+      registration => alert('ServiceWorker registered:', registration),
       err => alert('ServiceWorker registration failed:', err)
     );
   });
