@@ -3,12 +3,12 @@
     "name": "The Olde Way - Card Game",
     "icons": [
       {
-        "src": "/assets/icons/test.svg",
+        "src": "/assets/icons/coffee192.png",
         "sizes": "192x192",
         "type": "image/png"
       },
       {
-        "src": "/assets/icons/test.svg",
+        "src": "/assets/icons/coffee512.png",
         "sizes": "512x512",
         "type": "image/png"
       }
