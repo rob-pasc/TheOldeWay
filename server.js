@@ -13,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Register endpoint
+// Register endpoint
 app.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -28,7 +29,14 @@ app.post('/register', async (req, res) => {
       [username, email, hashedPassword]
     );
 
-    res.status(201).json({ message: "User registered successfully", user: result.rows[0] });
+    const user = result.rows[0];
+    const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
+
+    res.status(201).json({ 
+      message: "User registered successfully", 
+      user, 
+      token 
+    });
   } catch (err) {
     if (err.code === "23505") {
       return res.status(400).json({ error: "Username or email already exists" });
@@ -37,6 +45,7 @@ app.post('/register', async (req, res) => {
     res.status(500).send('Error registering user');
   }
 });
+
 
 // Login endpoint
 app.post('/login', async (req, res) => {
@@ -68,8 +77,37 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// for JWT TOken auth
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) return res.status(401).json({ error: "Access denied" });
+
+  jwt.verify(token, SECRET_KEY, (err, user) => {
+    if (err) return res.status(403).json({ error: "Invalid token" });
+    req.user = user;
+    next();
+  });
+};
+
+// get personal data
+app.get('/me', authenticateToken, async (req, res) => {
+  try {
+    const result = await db.query('SELECT id, username, email, created_at FROM usr WHERE id = $1', [req.user.id]);
+    const user = result.rows[0];
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching user data');
+  }
+});
+
 app.get('/', (req, res) => {
-  res.send("API is running. Use /players for operations.");
+  res.send("API is running.");
 });
 
 app.get('/ich', (req, res) => {

@@ -1,14 +1,4 @@
-// app.js
-// document.getElementById('start-game-btn').addEventListener('click', async () => {
-//   try {
-//       const response = await fetch('https://theoldeway.onrender.com/players'); // Beispiel-Endpoint
-//       const players = await response.json();
-//       console.log(players);
-//       alert(`Es gibt ${players.length} Spieler!`);
-//   } catch (err) {
-//       console.error('Fehler beim Abrufen der Spieler:', err);
-//   }
-// });
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.getElementById("registerForm");
@@ -43,7 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const data = await response.json();
-      alert(data.message || data.error);
+      // alert(data.message || data.error);
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        window.location.href = "/profile.html";
+      } else {
+        alert(data.error || data.message);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -61,7 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const data = await response.json();
-      alert(data.message || data.error);
+      // alert(data.message || data.error);
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        window.location.href = "/profile.html";
+      } else {
+        alert(data.error || data.message);
+      }
     } catch (error) {
       console.error(error);
     }
