@@ -1,10 +1,8 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('js/service-worker.js').then(
-      // registration => console.log('ServiceWorker registered:', registration),
-      // err => console.error('ServiceWorker registration failed:', err)
-      // registration => alert('ServiceWorker registered:' + registration),
-      err => alert('ServiceWorker registration failed:' + err)
+    navigator.serviceWorker.register('./service-worker.js').then(
+    registration => console.log('ServiceWorker registered:', registration),
+    err => console.error('ServiceWorker registration failed:', err)
     );
   });
 }
@@ -20,6 +18,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
   // Show your custom "Install" button and add a click listener.
   const installButton = document.getElementById('installButton');
   installButton.style.display = 'block';
+
   installButton.addEventListener('click', () => {
     deferredPrompt.prompt(); // Show the install prompt.
     deferredPrompt.userChoice.then((choiceResult) => {
