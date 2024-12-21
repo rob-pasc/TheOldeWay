@@ -1,11 +1,36 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').then(
+    navigator.serviceWorker.register('js/service-worker.js').then(
       registration => console.log('ServiceWorker registered:', registration),
       err => console.error('ServiceWorker registration failed:', err)
     );
   });
 }
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent the mini-infobar from appearing.
+  e.preventDefault();
+  deferredPrompt = e;
+  console.log('Add to Home Screen prompt available.');
+
+  // Show your custom "Install" button and add a click listener.
+  const installButton = document.getElementById('installButton');
+  installButton.style.display = 'block';
+  installButton.addEventListener('click', () => {
+    deferredPrompt.prompt(); // Show the install prompt.
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt.');
+      } else {
+        console.log('User dismissed the install prompt.');
+      }
+      deferredPrompt = null;
+    });
+  });
+});
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
