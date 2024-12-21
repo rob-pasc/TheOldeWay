@@ -29,15 +29,14 @@ body {
 }
 
 
+/* footer {
+  padding: 0 !important;
+} */
+
 /* Highlight the active link */
 .nav-link.active {
   color: #0d6efd; /* Bootstrap's primary color */
   font-weight: bold;
-}
-
-/* Adjust icon size */
-.nav-link i {
-  font-size: 1.5rem;
 }
 
 /* Space out text below icons */
@@ -46,10 +45,4 @@ body {
   margin-top: 0.2rem;
 }
 
-/* .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 200,
-  'GRAD' -25,
-  'opsz' 48
-} */
+
