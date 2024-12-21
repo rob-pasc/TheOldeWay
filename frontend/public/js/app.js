@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // alert(data.message || data.error);
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        window.location.href = "/profile.html";
+        window.location.href = "./profile.html";
       } else {
         alert(data.error || data.message);
       }
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // alert(data.message || data.error);
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        window.location.href = "/profile.html";
+        window.location.href = "./profile.html";
       } else {
         alert(data.error || data.message);
       }

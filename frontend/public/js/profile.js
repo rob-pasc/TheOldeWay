@@ -17,17 +17,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("created_at").textContent = new Date(data.created_at).toLocaleString();
       } else {
         alert(data.error || data.message);
-        window.location.href = "/login.html"; // Redirect to login if token is invalid
+        window.location.href = "./index.html"; // Redirect to login if token is invalid
       }
     } catch (error) {
       console.error(error);
-      window.location.href = "/login.html"; // Redirect to login if there's an error
+      window.location.href = "./index.html"; // Redirect to login if there's an error
     }
   
     // Handle logout
     document.getElementById("logoutButton").addEventListener("click", () => {
       localStorage.removeItem("token");
-      window.location.href = "/login.html"; // Redirect to login
+      window.location.href = "./index.html"; // Redirect to login
     });
   });
   
