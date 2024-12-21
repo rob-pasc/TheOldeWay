@@ -5,7 +5,7 @@ self.addEventListener('install', event => {
   });
   self.addEventListener('fetch', event => {
     // console.log('Fetching:', event.request.url);
-    alert('Fetching:', event.request.url);
+    alert('Fetching:' + event.request.url);
   });
   self.addEventListener('activate', event => {
     // console.log('Service worker activated.');
