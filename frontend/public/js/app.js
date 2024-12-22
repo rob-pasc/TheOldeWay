@@ -1,45 +1,54 @@
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').then(
-    registration => console.log('ServiceWorker registered:', registration),
-    err => console.error('ServiceWorker registration failed:', err)
-    );
-  });
+  navigator.serviceWorker
+    .register('service-worker.js')
+    .then(() => console.log('Service Worker Registered'))
+    .catch(err => console.error('Service Worker Registration Failed:', err));
 }
 
 let deferredPrompt;
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the mini-infobar from appearing.
-  e.preventDefault();
-  deferredPrompt = e;
-  console.log('Add to Home Screen prompt available.');
+window.addEventListener('beforeinstallprompt', event => {
+  console.log('beforeinstallprompt event fired'); // Debug log
+  event.preventDefault();
+  deferredPrompt = event;
 
-  // Show your custom "Install" button and add a click listener.
-  const installButton = document.getElementById('installButton');
-  installButton.style.display = 'block';
+  const installButton = document.getElementById('install-btn');
+  console.log('Install button:', installButton); // Debug log
+  if (installButton) {
+    installButton.style.display = 'block';
+    console.log('Install button displayed'); // Debug log
+  } else {
+    console.error('Install button not found'); // Debug log
+  }
 
   installButton.addEventListener('click', () => {
-    deferredPrompt.prompt(); // Show the install prompt.
-    deferredPrompt.userChoice.then((choiceResult) => {
+    console.log('Install button clicked'); // Debug log
+    installButton.style.display = 'none';
+    deferredPrompt.prompt();
+
+    deferredPrompt.userChoice.then(choiceResult => {
       if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted the install prompt.');
+        console.log('User accepted the install prompt');
       } else {
-        console.log('User dismissed the install prompt.');
+        console.log('User dismissed the install prompt');
       }
       deferredPrompt = null;
     });
   });
 });
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
+  console.log('DOM fully loaded and parsed'); // Debug log
   const registerForm = document.getElementById("registerForm");
   const loginForm = document.getElementById("loginForm");
 
   const switchToLogin = document.getElementById("switchToLogin");
   const switchToRegister = document.getElementById("switchToRegister");
+
+  console.log('Register form:', registerForm); // Debug log
+  console.log('Login form:', loginForm); // Debug log
+  console.log('Switch to Login button:', switchToLogin); // Debug log
+  console.log('Switch to Register button:', switchToRegister); // Debug log
 
   const registerButton = document.getElementById("registerButton");
   const loginButton = document.getElementById("loginButton");
@@ -103,7 +112,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
-
-
-
