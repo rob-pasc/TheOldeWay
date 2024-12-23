@@ -10,6 +10,15 @@
   font-display: swap;
 }
 
+.parchment-scroll {
+  background: url('https://www.publicdomainpictures.net/pictures/380000/velka/pergament-papier-alt-vintage.jpg') no-repeat center center;
+  background-size: cover;
+  padding: 20px;
+  border: 1px solid #d4af37;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
 /* Animated Background */
 body {
   margin: 0;

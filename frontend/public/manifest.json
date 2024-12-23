@@ -3,12 +3,12 @@
     "name": "The Olde Way To Glory & Fame",
     "icons": [
       {
-        "src": "./assets/icons/colorful-knight192.png",
+        "src": "./assets/icons/white-knight192.png",
         "sizes": "192x192",
         "type": "image/png"
       },
       {
-        "src": "./assets/icons/colorful-knight512.png",
+        "src": "./assets/icons/white-knight512.png",
         "sizes": "512x512",
         "type": "image/png"
       }
