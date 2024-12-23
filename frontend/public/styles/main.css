@@ -82,3 +82,19 @@ body {
 }
 
 
+
+header {
+  background: url('../assets/img/parchment-head.png') no-repeat center center;
+  background-size: 100% 100%; 
+}
+
+/* Options for background-size:
+   cover: The background image will cover the entire header, maintaining its aspect ratio.
+   contain: The background image will be scaled to fit within the header, maintaining its aspect ratio.
+   auto: The background image will be displayed at its original size.
+   100% 100%: The background image will be stretched to fit the header dimensions.
+*/
+
+
+
+
