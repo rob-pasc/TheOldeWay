@@ -10,6 +10,7 @@
   <link rel="preload" href="https://fonts.gstatic.com/s/medievalsharp/v12/EvOUzBRL0o0kCxF-lcMCpQ3pKftZ0g.woff2" as="font" type="font/woff2" crossorigin="anonymous">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap">
   <link rel="preload" href="../assets/img/bg-parchment.webp" as="image">
+  <script src="./js/camp.js" defer></script>
 </head>
 <body class="text-dark d-flex flex-column vh-100">
 
@@ -24,6 +25,25 @@
     <h1>Welcome to the Camp</h1>
     <p>Manage your resources and prepare for battles.</p>
   </main>
+
+  <!-- Decks Section -->
+  <section id="decks" class="container my-4">
+    <h2>Available Decks</h2>
+    <div id="deck-list" class="list-group">
+      <!-- Decks will be populated here by JavaScript -->
+    </div>
+  </section>
+
+  <!-- Overlay for Cards -->
+  <div id="overlay" class="overlay d-none">
+    <div class="overlay-content">
+      <span id="close-overlay" class="close">&times;</span>
+      <h2>Deck Cards</h2>
+      <ul id="card-list" class="list-group">
+        <!-- Cards will be populated here by JavaScript -->
+      </ul>
+    </div>
+  </div>
 
   <!-- Sticky Footer Navigation -->
   <footer class="py-0 position-sticky bottom-0">

@@ -124,6 +124,35 @@ app.get('/user', async (req, res) => {
   }
 });
 
+// Endpoint to get all decks
+app.get('/decks', async (req, res) => {
+  try {
+    const result = await db.query('SELECT deck_id, deck_name FROM deck');
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving decks');
+  }
+});
+
+// Endpoint to get cards in a deck
+app.get('/decks/:deckId/cards', async (req, res) => {
+  const { deckId } = req.params;
+  try {
+    const result = await db.query(
+      `SELECT c.card_id, c.card_name 
+       FROM build b 
+       JOIN card c ON b.card_id = c.card_id 
+       WHERE b.deck_id = $1`,
+      [deckId]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving cards');
+  }
+});
+
 const runSetupScript = (scriptName) => {
   return new Promise((resolve, reject) => {
     const scriptPath = path.join(__dirname, 'db', scriptName);

@@ -1,0 +1,12 @@
+{
+    "1": {
+      "img": "path/to/image1.png",
+      "icon": "path/to/icon1.svg",
+      "animation": "path/to/animation1.gif"
+    },
+    "2": {
+      "img": "path/to/image2.png",
+      "icon": "path/to/icon2.svg",
+      "animation": "path/to/animation2.gif"
+    }
+  }
