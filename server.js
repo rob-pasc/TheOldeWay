@@ -135,6 +135,21 @@ app.get('/decks', async (req, res) => {
   }
 });
 
+// Endpoint to get a deck by ID
+app.get('/decks/:deckId', async (req, res) => {
+  const { deckId } = req.params;
+  try {
+    const result = await db.query('SELECT deck_id, deck_name FROM deck WHERE deck_id = $1', [deckId]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Deck not found" });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving deck');
+  }
+});
+
 // Endpoint to get cards in a deck
 app.get('/decks/:deckId/cards', async (req, res) => {
   const { deckId } = req.params;

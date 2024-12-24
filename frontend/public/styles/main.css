@@ -102,10 +102,6 @@ main {
   cursor: pointer;
 }
 
-/* footer {
-  padding: 0 !important;
-} */
-
 /* Highlight the active link */
 .nav-link.active {
   color: #0d6efd; /* Bootstrap's primary color */
@@ -120,6 +116,11 @@ main {
 
 header {
   background: url('../assets/img/parchment-head.png') no-repeat center center;
+  background-size: 100% 100%; 
+}
+
+.subpage {
+  background: url('../assets/img/parchment-foot.png') no-repeat center center;
   background-size: 100% 100%; 
 }
 
