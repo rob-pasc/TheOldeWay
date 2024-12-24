@@ -3,17 +3,15 @@ const cors = require('cors');
 const db = require('./db/db');
 const path = require('path');
 const { spawn } = require('child_process');
-const bcrypt = require('bcryptjs'); // For password hashing
-const jwt = require('jsonwebtoken'); // Optional for session tokens
+const bcrypt = require('bcryptjs'); 
+const jwt = require('jsonwebtoken'); 
 
-const SECRET_KEY = process.env.SECRET_KEY; // Use an env variable for production  || 'your_secret_key'
+const SECRET_KEY = process.env.SECRET_KEY; 
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Register endpoint
-// Register endpoint
 app.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -46,8 +44,6 @@ app.post('/register', async (req, res) => {
   }
 });
 
-
-// Login endpoint
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -91,7 +87,6 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-// get personal data
 app.get('/me', authenticateToken, async (req, res) => {
   try {
     const result = await db.query('SELECT id, username, email, created_at FROM usr WHERE id = $1', [req.user.id]);
@@ -124,7 +119,6 @@ app.get('/user', async (req, res) => {
   }
 });
 
-// Endpoint to get all decks
 app.get('/decks', async (req, res) => {
   try {
     const result = await db.query('SELECT deck_id, deck_name FROM deck');
@@ -135,7 +129,6 @@ app.get('/decks', async (req, res) => {
   }
 });
 
-// Endpoint to get a deck by ID
 app.get('/decks/:deckId', async (req, res) => {
   const { deckId } = req.params;
   try {
@@ -150,7 +143,6 @@ app.get('/decks/:deckId', async (req, res) => {
   }
 });
 
-// Endpoint to get cards in a deck
 app.get('/decks/:deckId/cards', async (req, res) => {
   const { deckId } = req.params;
   try {
