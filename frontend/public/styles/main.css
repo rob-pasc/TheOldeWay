@@ -119,7 +119,7 @@ header {
   background-size: 100% 100%; 
 }
 
-.subpage {
+footer.subpage {
   background: url('../assets/img/parchment-foot.png') no-repeat center center;
   background-size: 100% 100%; 
 }

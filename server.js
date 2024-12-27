@@ -160,6 +160,29 @@ app.get('/decks/:deckId/cards', async (req, res) => {
   }
 });
 
+// Endpoint to get card details by ID
+app.get('/cards/:cardId', async (req, res) => {
+  const { cardId } = req.params;
+  try {
+    const result = await db.query(
+      `SELECT c.card_id, c.card_name, c.card_desc, c.card_type, 
+              com.might, com.ability, sp.effect
+       FROM card c
+       LEFT JOIN combatant com ON c.card_id = com.comb_id
+       LEFT JOIN spell sp ON c.card_id = sp.spell_id
+       WHERE c.card_id = $1`,
+      [cardId]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Card not found" });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving card details');
+  }
+});
+
 const runSetupScript = (scriptName) => {
   return new Promise((resolve, reject) => {
     const scriptPath = path.join(__dirname, 'db', scriptName);
