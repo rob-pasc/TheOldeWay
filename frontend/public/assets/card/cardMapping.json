@@ -1,12 +1,17 @@
 {
-    "1": {
-      "img": "path/to/image1.png",
-      "icon": "path/to/icon1.svg",
-      "animation": "path/to/animation1.gif"
-    },
-    "2": {
-      "img": "path/to/image2.png",
-      "icon": "path/to/icon2.svg",
-      "animation": "path/to/animation2.gif"
-    }
+  "1": {
+    "img": "./assets/card/img/dragon.jpeg",
+    "icon": "./assets/card/icon/dragon.svg",
+    "animation": "./assets/card/animation/dragon.gif"
+  },
+  "2": {
+    "img": "./assets/card/img/sorc.jpeg",
+    "icon": "./assets/card/icon/sorc.svg",
+    "animation": "./assets/card/animation/sorc.gif"
+  },
+  "3": {
+    "img": "./assets/card/img/king.jpeg",
+    "icon": "./assets/card/icon/king.svg",
+    "animation": "./assets/card/animation/king.gif"
   }
+}
