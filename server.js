@@ -147,9 +147,10 @@ app.get('/decks/:deckId/cards', async (req, res) => {
   const { deckId } = req.params;
   try {
     const result = await db.query(
-      `SELECT c.card_id, c.card_name 
+      `SELECT c.card_id, c.card_name, c.card_type, b.quantity, com.might
        FROM build b 
        JOIN card c ON b.card_id = c.card_id 
+       LEFT JOIN combatant com ON c.card_id = com.comb_id
        WHERE b.deck_id = $1`,
       [deckId]
     );

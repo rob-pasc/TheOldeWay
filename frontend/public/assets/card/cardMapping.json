@@ -13,5 +13,50 @@
     "img": "./assets/card/img/king.jpeg",
     "icon": "./assets/card/icon/king.svg",
     "animation": "./assets/card/animation/king.gif"
+  },
+  "4": {
+    "img": "./assets/card/img/hero.jpeg",
+    "icon": "./assets/card/icon/hero.svg",
+    "animation": "./assets/card/animation/hero.gif"
+  },
+  "5": {
+    "img": "./assets/card/img/duke.jpeg",
+    "icon": "./assets/card/icon/duke.svg",
+    "animation": "./assets/card/animation/duke.gif"
+  },
+  "6": {
+    "img": "./assets/card/img/knight.jpeg",
+    "icon": "./assets/card/icon/knight.svg",
+    "animation": "./assets/card/animation/knight.gif"
+  },
+  "7": {
+    "img": "./assets/card/img/guard.jpeg",
+    "icon": "./assets/card/icon/guard.svg",
+    "animation": "./assets/card/animation/guard.gif"
+  },
+  "8": {
+    "img": "./assets/card/img/peasant.jpeg",
+    "icon": "./assets/card/icon/peasant.svg",
+    "animation": "./assets/card/animation/peasant.gif"
+  },
+  "9": {
+    "img": "./assets/card/img/slave.jpeg",
+    "icon": "./assets/card/icon/slave.svg",
+    "animation": "./assets/card/animation/slave.gif"
+  },
+  "10": {
+    "img": "./assets/card/img/scroll.jpeg",
+    "icon": "./assets/card/icon/scroll.svg",
+    "animation": "./assets/card/animation/scroll.gif"
+  },
+  "11": {
+    "img": "./assets/card/img/scroll.jpeg",
+    "icon": "./assets/card/icon/scroll.svg",
+    "animation": "./assets/card/animation/scroll.gif"
+  },
+  "12": {
+    "img": "./assets/card/img/scroll.jpeg",
+    "icon": "./assets/card/icon/scroll.svg",
+    "animation": "./assets/card/animation/scroll.gif"
   }
 }
