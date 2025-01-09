@@ -162,4 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
   closeCardOverlay.addEventListener("click", () => {
     cardOverlay.classList.add("d-none");
   });
+
+  cardOverlay.addEventListener("click", (event) => {
+    if (event.target === cardOverlay) {
+      cardOverlay.classList.add("d-none");
+    }
+  });
 });
