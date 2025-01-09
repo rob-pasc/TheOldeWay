@@ -29,15 +29,16 @@ document.addEventListener("DOMContentLoaded", () => {
         cards.forEach(card => {
           const cardItem = document.createElement("li");
           cardItem.className = "list-group-item d-flex justify-content-between align-items-center";
+          cardItem.dataset.cardId = card.card_id;
           
           const icon = document.createElement("img");
           icon.style.width = "24px";
           icon.style.height = "24px";
           icon.className = "me-2";
           if (card.card_type === 'combatant') {
-            icon.src = './assets/card/icon/combatant.svg';
+            icon.src = './assets/card/icon/combatant_black.svg';
           } else if (card.card_type === 'spell') {
-            icon.src = './assets/card/icon/scroll.svg';
+            icon.src = './assets/card/icon/scroll_black.svg';
           }
 
           const cardText = document.createElement("span");
@@ -66,9 +67,55 @@ document.addEventListener("DOMContentLoaded", () => {
     deckNameElement.textContent = "Deck not found";
   }
 
-  cardList.addEventListener("click", event => {
-    if (event.target && event.target.matches("li.list-group-item")) {
-      const cardId = event.target.dataset.cardId;
+  combatantList.addEventListener("click", event => {
+    if (event.target && event.target.closest("li.list-group-item")) {
+      const cardId = event.target.closest("li.list-group-item").dataset.cardId;
+      fetch(`https://theoldeway.onrender.com/cards/${cardId}`)
+        .then(response => response.json())
+        .then(card => {
+          cardName.textContent = card.card_name;
+          cardDesc.textContent = card.card_desc;
+          cardType.textContent = `Type: ${card.card_type}`;
+          if (card.card_type === "combatant") {
+            cardExtra.textContent = `Might: ${card.might}, Ability: ${card.ability}`;
+          } else if (card.card_type === "spell") {
+            cardExtra.textContent = `Effect: ${card.effect}`;
+          }
+
+          fetch("./assets/card/cardMapping.json")
+            .then(response => response.json())
+            .then(mapping => {
+              const cardData = mapping[card.card_id];
+              if (cardData) {
+                cardImage.src = cardData.img;
+              } else {
+                cardImage.src = "";
+              }
+            })
+            .catch(error => console.error("Error fetching card mapping:", error));
+
+          const cardTypeIcon = document.getElementById('card-type-icon');
+          const cardMight = document.getElementById('card-might');
+          if (card.card_type === 'combatant') {
+            cardTypeIcon.src = './assets/card/icon/combatant.svg';
+            cardMight.textContent = card.might;
+          } else if (card.card_type === 'spell') {
+            cardTypeIcon.src = './assets/card/icon/scroll.svg';
+            cardMight.textContent = '';
+          } else {
+            cardTypeIcon.src = '';
+            cardMight.textContent = '';
+          }
+
+          cardOverlay.classList.remove("d-none");
+        })
+        .catch(error => console.error("Error fetching card details:", error));
+    }
+  });
+
+  spellList.addEventListener("click", event => {
+    if (event.target && event.target.closest("li.list-group-item")) {
+      const cardId = event.target.closest("li.list-group-item").dataset.cardId;
       fetch(`https://theoldeway.onrender.com/cards/${cardId}`)
         .then(response => response.json())
         .then(card => {
