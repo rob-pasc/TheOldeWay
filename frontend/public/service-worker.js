@@ -1,11 +1,11 @@
 const CACHE_NAME = 'theoldeway-cache-v1';
 const urlsToCache = [
-  '/'
-  // '/index.html',
-  // '/styles/main.css',
-  // '/js/app.js',
-  // '/assets/vid/smoke-loop.mp4',
-  // '/assets/icons/white-knight192.png',
+  '/',
+  '/index.html',
+  '/styles/main.css',
+  '/js/app.js',
+  '/assets/vid/smoke-loop.mp4',
+  '/assets/icons/white-knight192.png',
   // Add other assets to cache
 ];
 
@@ -46,17 +46,14 @@ self.addEventListener('fetch', event => {
         }
         console.log('Service Worker: Network request for', event.request.url);
         return fetch(event.request).then(networkResponse => {
-          if (networkResponse.status === 404) {
-            console.error('Service Worker: Resource not found', event.request.url);
-            return caches.match('/404.html');
+          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+            console.error('Service Worker: Invalid response', event.request.url);
+            return networkResponse;
           }
-          if (networkResponse.status === 200) {
-            return caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request.url, networkResponse.clone());
-              return networkResponse;
-            });
-          }
-          return networkResponse;
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request.url, networkResponse.clone());
+            return networkResponse;
+          });
         });
       }).catch(error => {
         console.error('Service Worker: Fetch error', error);
