@@ -37,7 +37,7 @@ app.post('/register', async (req, res) => {
     });
   } catch (err) {
     if (err.code === "23505") {
-      return res.status(400).json({ error: "Username or email already exists" });
+      return res.status(400).json({ error: "Username already exists" });
     }
     console.error(err);
     res.status(500).send('Error registering user');
@@ -89,7 +89,7 @@ const authenticateToken = (req, res, next) => {
 
 app.get('/me', authenticateToken, async (req, res) => {
   try {
-    const result = await db.query('SELECT id, username, email, created_at FROM usr WHERE id = $1', [req.user.id]);
+    const result = await db.query('SELECT id, username, created_at FROM usr WHERE id = $1', [req.user.id]);
     const user = result.rows[0];
     if (!user) {
       return res.status(404).json({ error: "User not found" });
