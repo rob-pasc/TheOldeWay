@@ -23,12 +23,12 @@ app.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const result = await db.query(
-      'INSERT INTO usr (username, password_hash) VALUES ($1, $2) RETURNING id, username',
+      'INSERT INTO usr (username, password_hash) VALUES ($1, $2) RETURNING user_id, username',
       [username, hashedPassword]
     );
 
     const user = result.rows[0];
-    const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user.user_id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
 
     res.status(201).json({ 
       message: "User registered successfully", 
@@ -64,7 +64,7 @@ app.post('/login', async (req, res) => {
       return res.status(401).json({ error: "Invalid password" });
     }
 
-    const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user.user_id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
 
     res.json({ message: "Login successful", token });
   } catch (err) {
