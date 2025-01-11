@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const data = await response.json();
       if (response.ok) {
         document.getElementById("username").textContent = data.username;
-        document.getElementById("email").textContent = data.email;
+        // document.getElementById("email").textContent = data.email;
         document.getElementById("created_at").textContent = new Date(data.created_at).toLocaleString();
       } else {
         alert(data.error || data.message);

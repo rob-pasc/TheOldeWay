@@ -65,14 +65,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   registerButton.addEventListener("click", async () => {
     const username = document.getElementById("regUsername").value;
-    const email = document.getElementById("regEmail").value;
+    // const email = document.getElementById("regEmail").value;
     const password = document.getElementById("regPassword").value;
 
     try {
       const response = await fetch("https://theoldeway.onrender.com/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
