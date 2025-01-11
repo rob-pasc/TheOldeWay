@@ -3,13 +3,6 @@
 /* Import Medieval Font */
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
-/* Preload Medieval Font */
-@font-face {
-  font-family: 'MedievalSharp';
-  src: url('https://fonts.gstatic.com/s/medievalsharp/v12/EvOUzBRL0o0kCxF-lcMCpQ3pKftZ0g.woff2') format('woff2');
-  font-display: swap;
-}
-
 .parchment-scroll {
   background: url('https://www.publicdomainpictures.net/pictures/380000/velka/pergament-papier-alt-vintage.jpg') no-repeat center center;
   background-size: cover;

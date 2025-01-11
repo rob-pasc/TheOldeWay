@@ -1,8 +1,10 @@
-if ('serviceWorker' in navigator) {
+if (window.location.protocol === 'https:' && 'serviceWorker' in navigator) {
   navigator.serviceWorker
     .register('service-worker.js')
     .then(() => console.log('Service Worker Registered'))
     .catch(err => console.error('Service Worker Registration Failed:', err));
+} else {
+  console.warn('Service Worker not registered. HTTPS is required.');
 }
 
 let deferredPrompt;

@@ -1,52 +1,63 @@
+const CACHE_NAME = 'theoldeway-cache-v1';
+const urlsToCache = [
+  // '/',
+  // '/index.html',
+  // '/styles/main.css',
+  // '/js/app.js',
+  // '/assets/vid/smoke-loop.mp4',
+  // '/assets/icons/white-knight192.png',
+  // // Add other assets to cache
+];
+
 self.addEventListener('install', event => {
-  console.log('Service Worker: Install event'); // Debug log
-  self.skipWaiting();
   event.waitUntil(
-    caches.open('pwa-cache').then(cache => {
-      console.log('Service Worker: Caching files'); // Debug log
-      return cache.addAll([
-        '/',
-        './index.html',
-        './styles/main.css',
-        './js/app.js',
-      ]);
-    }).catch(error => {
-      console.error('Service Worker: Caching failed', error); // Debug log
-    })
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('Opened cache');
+        return cache.addAll(urlsToCache);
+      })
   );
 });
 
 self.addEventListener('activate', event => {
-  console.log('Service Worker: Activate event'); // Debug log
+  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheName !== 'pwa-cache') {
-            console.log('Service Worker: Deleting old cache', cacheName); // Debug log
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
             return caches.delete(cacheName);
           }
         })
       );
-    }).catch(error => {
-      console.error('Service Worker: Activation failed', error); // Debug log
     })
   );
   self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
-  console.log('Service Worker: Fetch event for', event.request.url); // Debug log
+  console.log('Service Worker: Fetch event for', event.request.url);
   event.respondWith(
-    caches.match(event.request).then(response => {
-      if (response) {
-        console.log('Service Worker: Found in cache', event.request.url); // Debug log
-        return response;
-      }
-      console.log('Service Worker: Network request for', event.request.url); // Debug log
-      return fetch(event.request);
-    }).catch(error => {
-      console.error('Service Worker: Fetch failed', error); // Debug log
-    })
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          console.log('Service Worker: Found in cache', event.request.url);
+          return response;
+        }
+        console.log('Service Worker: Network request for', event.request.url);
+        return fetch(event.request).then(networkResponse => {
+          if (networkResponse.status === 404) {
+            console.error('Service Worker: Resource not found', event.request.url);
+            return caches.match('/404.html');
+          }
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request.url, networkResponse.clone());
+            return networkResponse;
+          });
+        });
+      }).catch(error => {
+        console.error('Service Worker: Fetch error', error);
+        return caches.match('/offline.html');
+      })
   );
 });
