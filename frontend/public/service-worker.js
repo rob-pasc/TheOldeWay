@@ -1,12 +1,12 @@
 const CACHE_NAME = 'theoldeway-cache-v1';
 const urlsToCache = [
-  // '/',
+  '/'
   // '/index.html',
   // '/styles/main.css',
   // '/js/app.js',
   // '/assets/vid/smoke-loop.mp4',
   // '/assets/icons/white-knight192.png',
-  // // Add other assets to cache
+  // Add other assets to cache
 ];
 
 self.addEventListener('install', event => {
@@ -50,10 +50,13 @@ self.addEventListener('fetch', event => {
             console.error('Service Worker: Resource not found', event.request.url);
             return caches.match('/404.html');
           }
-          return caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request.url, networkResponse.clone());
-            return networkResponse;
-          });
+          if (networkResponse.status === 200) {
+            return caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request.url, networkResponse.clone());
+              return networkResponse;
+            });
+          }
+          return networkResponse;
         });
       }).catch(error => {
         console.error('Service Worker: Fetch error', error);
