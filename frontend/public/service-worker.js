@@ -4,8 +4,8 @@ const urlsToCache = [
   '/index.html',
   '/styles/main.css',
   '/js/app.js',
-  '/assets/vid/smoke-loop.mp4',
-  '/assets/icons/white-knight192.png',
+  // '/assets/vid/smoke-loop.mp4',
+  // '/assets/icons/white-knight192.png',
   // Add other assets to cache
 ];
 
