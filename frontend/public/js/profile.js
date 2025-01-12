@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("token");
   if (!token) {
     console.warn("No token found, redirecting to login.");
-    window.location.href = "/login.html"; // Redirect to login if no token
+    window.location.href = "/camp.html"; // Redirect to login if no token
     return;
   }
 
@@ -19,11 +19,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       console.warn("Invalid token, redirecting to login.");
       alert(data.error || data.message);
-      window.location.href = "./index.html"; // Redirect to login if token is invalid
+      window.location.href = "./camp.html"; // Redirect to login if token is invalid
     }
   } catch (error) {
     console.error("Error fetching user data:", error);
-    window.location.href = "./index.html"; // Redirect to login if there's an error
+    window.location.href = "./camp.html"; // Redirect to login if there's an error
   }
 
   // Handle logout
