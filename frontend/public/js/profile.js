@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("token");
   if (!token) {
     console.warn("No token found, redirecting to login.");
+    alert("No token found, redirecting to login.");
     window.location.href = "/camp.html"; // Redirect to login if no token
     return;
   }
@@ -18,11 +19,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("created_at").textContent = new Date(data.created_at).toLocaleString();
     } else {
       console.warn("Invalid token, redirecting to login.");
-      alert(data.error || data.message);
+      alert("Invalid token, redirecting to login.");
+      // alert(data.error || data.message);
       window.location.href = "./camp.html"; // Redirect to login if token is invalid
     }
   } catch (error) {
     console.error("Error fetching user data:", error);
+    alert("Error fetching user data");
     window.location.href = "./camp.html"; // Redirect to login if there's an error
   }
 
