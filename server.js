@@ -185,6 +185,43 @@ app.get('/cards/:cardId', async (req, res) => {
   }
 });
 
+app.post('/friend-request', authenticateToken, async (req, res) => {
+  const { friendUsername } = req.body;
+
+  try {
+    const result = await db.query('SELECT user_id FROM usr WHERE username = $1', [friendUsername]);
+    const friend = result.rows[0];
+
+    if (!friend) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    await db.query(
+      'INSERT INTO friendlist (user1, user2) VALUES ($1, $2)',
+      [req.user.id, friend.user_id]
+    );
+
+    res.status(201).json({ message: "Friend request sent" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error sending friend request');
+  }
+});
+
+app.get('/friend-requests', authenticateToken, async (req, res) => {
+  try {
+    const result = await db.query(
+      'SELECT u.user_id, u.username FROM friendlist f JOIN usr u ON f.user1 = u.user_id WHERE f.user2 = $1',
+      [req.user.id]
+    );
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving friend requests');
+  }
+});
+
 const runSetupScript = (scriptName) => {
   return new Promise((resolve, reject) => {
     const scriptPath = path.join(__dirname, 'db', scriptName);

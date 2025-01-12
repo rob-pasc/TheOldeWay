@@ -29,6 +29,18 @@
       <h1 class="my-4">Welcome, <span id="username"></span>!</h1>
       <p>Account created on: <span id="created_at"></span></p>
       <button id="logoutButton" class="btn btn-danger mt-4">Logout</button>
+
+      <div class="my-4">
+        <h2>Send Friend Request</h2>
+        <input type="text" id="friendUsername" placeholder="Enter friend's username" class="form-control my-2">
+        <button id="sendFriendRequestButton" class="btn btn-primary">Send Request</button>
+      </div>
+      <div class="my-4">
+        <h2>Friend Requests</h2>
+        <ul id="friendRequestsList" class="list-group">
+          <!-- Friend requests will be populated here by JavaScript -->
+        </ul>
+      </div>
     </div>
 
   </main>
@@ -54,5 +66,11 @@
 </div>
   <script src="./js/profile.js" defer></script>
   <script src="./js/app.js" defer></script>
+  <script>
+    document.getElementById("sendFriendRequestButton").addEventListener("click", () => {
+      const friendUsername = document.getElementById("friendUsername").value;
+      sendFriendRequest(friendUsername);
+    });
+  </script>
 </body>
 </html>
