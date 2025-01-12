@@ -1,0 +1,35 @@
+{
+    "steps": [
+      {
+        "id": 1,
+        "dialogue": "Welcome to The Olde Way! Let's start by registering an account.",
+        "element": "#registerForm"
+      },
+      {
+        "id": 2,
+        "dialogue": "Now, log in with your new account.",
+        "element": "#loginForm"
+      },
+      {
+        "id": 12,
+        "dialogue": [
+            {"bubble": "And this fine mighty creature is like my long robes on the floor...dragon"},
+            {"bubble": "Heh, get it? Dragon - dragging? It's a homonym and..."},
+            {"bubble": "Oh, nevermind. Forgive me. I'll spare you the boring monk humor and just stick to teaching. At least I know I'm decent at that."}, 
+            {"bubble": "*sigh* You could have at least laughed a little bit you know, now I feel a bit sad."}, 
+            {"bubble": "Anyway, let's move on. As you can see asdfaasdf."}
+        ],
+        "element": "#"
+      },
+      {
+        "id": 15,
+        "dialogue": [
+            {"bubble": "Now now, don't get too eager. Remember, your opponent will have the very same cards that you do."}, 
+            {"bubble": "They key element to win is to predict what combatant your adversary will send out, what spell he will throw at you."}, 
+            {"bubble": "You must be able to read your opponent's mind like a book and outsmart them."}, 
+            {"bubble": "But don't worry, I'll be here to guide you through the process. I have schooled many fine conquerors before. You'll be a master in no time."}
+        ],
+        "element": "#"
+      }
+    ]
+  }
