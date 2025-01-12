@@ -197,8 +197,8 @@ app.post('/friend-request', authenticateToken, async (req, res) => {
     }
 
     await db.query(
-      'INSERT INTO friendlist (user1, user2) VALUES ($1, $2)',
-      [req.user.id, friend.user_id]
+      'INSERT INTO friendlist (user1, user2, friend_status) VALUES ($1, $2, $3)',
+      [req.user.id, friend.user_id, 'pending']
     );
 
     res.status(201).json({ message: "Friend request sent" });
@@ -211,14 +211,30 @@ app.post('/friend-request', authenticateToken, async (req, res) => {
 app.get('/friend-requests', authenticateToken, async (req, res) => {
   try {
     const result = await db.query(
-      'SELECT u.user_id, u.username FROM friendlist f JOIN usr u ON f.user1 = u.user_id WHERE f.user2 = $1',
-      [req.user.id]
+      'SELECT u.user_id, u.username FROM friendlist f JOIN usr u ON f.user1 = u.user_id WHERE f.user2 = $1 AND f.friend_status = $2',
+      [req.user.id, 'pending']
     );
 
     res.json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).send('Error retrieving friend requests');
+  }
+});
+
+app.post('/accept-friend-request', authenticateToken, async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    await db.query(
+      'UPDATE friendlist SET friend_status = $1 WHERE user1 = $2 AND user2 = $3',
+      ['accepted', userId, req.user.id]
+    );
+
+    res.status(200).json({ message: "Friend request accepted" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error accepting friend request');
   }
 });
 

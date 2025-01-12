@@ -23,6 +23,30 @@ async function sendFriendRequest(friendUsername) {
   }
 }
 
+async function acceptFriendRequest(userId) {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await fetch("https://theoldeway.onrender.com/accept-friend-request", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ userId })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      alert("Friend request accepted");
+      await getFriendRequests(); // Refresh the friend requests list
+    } else {
+      alert(data.error || data.message);
+    }
+  } catch (error) {
+    console.error("Error accepting friend request:", error);
+  }
+}
+
 async function getFriendRequests() {
   const token = localStorage.getItem("token");
   try {
@@ -37,6 +61,11 @@ async function getFriendRequests() {
       data.forEach(request => {
         const listItem = document.createElement("li");
         listItem.textContent = request.username;
+        const acceptButton = document.createElement("button");
+        acceptButton.textContent = "Accept";
+        acceptButton.classList.add("btn", "btn-success", "ms-2");
+        acceptButton.addEventListener("click", () => acceptFriendRequest(request.user_id));
+        listItem.appendChild(acceptButton);
         friendRequestsList.appendChild(listItem);
       });
     } else {
