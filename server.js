@@ -238,6 +238,22 @@ app.post('/accept-friend-request', authenticateToken, async (req, res) => {
   }
 });
 
+app.post('/reject-friend-request', authenticateToken, async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    await db.query(
+      'UPDATE friendlist SET friend_status = $1 WHERE user1 = $2 AND user2 = $3',
+      ['rejected', userId, req.user.id]
+    );
+
+    res.status(200).json({ message: "Friend request rejected" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error rejecting friend request');
+  }
+});
+
 const runSetupScript = (scriptName) => {
   return new Promise((resolve, reject) => {
     const scriptPath = path.join(__dirname, 'db', scriptName);
