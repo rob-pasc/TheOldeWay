@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const data = await response.json();
     if (response.ok) {
+      console.log("User data fetched successfully:", data);
       document.getElementById("username").textContent = data.username;
       // document.getElementById("email").textContent = data.email;
       document.getElementById("created_at").textContent = new Date(data.created_at).toLocaleString();
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Handle logout
   document.getElementById("logoutButton").addEventListener("click", () => {
+    console.log("Logging out...");
     localStorage.removeItem("token");
     window.location.href = "./battle.html"; // Redirect to login
   });
