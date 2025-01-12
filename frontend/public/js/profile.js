@@ -1,3 +1,5 @@
+let new_user = false;
+
 document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("token");
   if (!token) {
@@ -16,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.log("User data fetched successfully:", data);
       document.getElementById("username").textContent = data.username;
       document.getElementById("created_at").textContent = new Date(data.created_at).toLocaleString();
+      new_user = data.times_logged_in === 0; // Set new_user based on times_logged_in
     } else {
       console.warn("Invalid token, redirecting to login.");
       // alert(data.error || data.message);

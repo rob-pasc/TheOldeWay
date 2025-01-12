@@ -113,4 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(error);
     }
   });
+
+  if (new_user) {
+    alert("Welcome, new user! Enjoy your first visit to the Armory.");
+  }
 });
