@@ -66,6 +66,7 @@ app.post('/login', async (req, res) => {
 
     const token = jwt.sign({ id: user.user_id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
 
+    await db.query('UPDATE usr SET times_logged_in = times_logged_in+1 WHERE username = $1', [username]);
     res.json({ message: "Login successful", token });
   } catch (err) {
     console.error(err);
