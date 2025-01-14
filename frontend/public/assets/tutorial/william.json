@@ -1,5 +1,5 @@
 {
-    "steps": [
+    "tutorial": [
       {
         "id": 1,
         "dialogue": "Welcome to The Olde Way! Let's start by registering an account.",
@@ -15,9 +15,8 @@
         "dialogue": [
             {"bubble": "And this fine mighty creature is like my long robes on the floor...dragon"},
             {"bubble": "Heh, get it? Dragon - dragging? It's a homonym and..."},
-            {"bubble": "Oh, nevermind. Forgive me. I'll spare you the boring monk humor and just stick to teaching. At least I know I'm decent at that."}, 
-            {"bubble": "*sigh* You could have at least laughed a little bit you know, now I feel a bit sad."}, 
-            {"bubble": "Anyway, let's move on. As you can see asdfaasdf."}
+            {"bubble": "*sigh* Oh, nevermind. Forgive me. I'll spare you the boring monk humor and just stick to teaching. At least I know I'm decent at that."}, 
+            {"bubble": "Anyway, let's move on. As you can see ...."}
         ],
         "element": "#"
       },

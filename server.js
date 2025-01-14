@@ -200,6 +200,10 @@ app.post('/friend-request', authenticateToken, async (req, res) => {
       'INSERT INTO friendlist (user1, user2, friend_status) VALUES ($1, $2, $3)',
       [req.user.id, friend.user_id, 'pending']
     );
+    await db.query(
+      'INSERT INTO friendlist (user1, user2, friend_status) VALUES ($2, $1, $3)',
+      [req.user.id, friend.user_id, 'pending']
+    );
 
     res.status(201).json({ message: "Friend request sent" });
   } catch (err) {
