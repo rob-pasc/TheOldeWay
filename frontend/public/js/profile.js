@@ -18,6 +18,8 @@ async function sendFriendRequest(friendUsername) {
     } else {
       alert(data.error || data.message);
     }
+
+    
   } catch (error) {
     console.error("Error sending friend request:", error);
   }
@@ -105,11 +107,35 @@ async function getFriendRequests() {
   }
 }
 
+async function getFriends() {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await fetch("https://theoldeway.onrender.com/friends", {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      const friendsList = document.getElementById("friendsList");
+      friendsList.innerHTML = "";
+      data.forEach(friend => {
+        const listItem = document.createElement("li");
+        listItem.textContent = friend.username;
+        friendsList.appendChild(listItem);
+      });
+    } else {
+      alert(data.error || data.message);
+    }
+  } catch (error) {
+    console.error("Error retrieving friends:", error);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("token");
   if (!token) {
     console.warn("No token found, redirecting to login.");
-    window.location.href = "/index.html"; // Redirect to login if no token
+    window.location.href = "/index.html"; 
     return;
   }
 
@@ -123,24 +149,23 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.log("User data fetched successfully:", data);
       document.getElementById("username").textContent = data.username;
       document.getElementById("created_at").textContent = new Date(data.created_at).toLocaleString();
-      new_user = data.times_logged_in === 0; // Set new_user based on times_logged_in
-      localStorage.setItem("new_user", new_user); // Store new_user in localStorage
+      new_user = data.times_logged_in === 0; 
+      localStorage.setItem("new_user", new_user); 
     } else {
       console.warn("Invalid token, redirecting to login.");
-      // alert(data.error || data.message);
-      window.location.href = "./index.html"; // Redirect to login if token is invalid
+      window.location.href = "./index.html"; 
     }
   } catch (error) {
     console.error("Error fetching user data:", error);
-    window.location.href = "./index.html"; // Redirect to login if there's an error
+    window.location.href = "./index.html"; 
   }
 
   await getFriendRequests();
+  await getFriends();
 
-  // Handle logout
   document.getElementById("logoutButton").addEventListener("click", () => {
     console.log("Logging out...");
     localStorage.removeItem("token");
-    window.location.href = "./index.html"; // Redirect to login
+    window.location.href = "./index.html"; 
   });
 });

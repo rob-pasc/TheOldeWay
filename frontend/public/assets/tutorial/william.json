@@ -11,6 +11,16 @@
         "element": "#loginForm"
       },
       {
+        "id": 3,
+        "dialogue": [
+            {"bubble": "A pleasure to meet you, my name is William."},
+            {"bubble": "I am a monk but you probably already guessed that from my attire, these boring brown robes are not exactly conspicuous."},
+            {"bubble": "I am here to guide you through the basics of the game."},
+            {"bubble": "I see you have already chosen your avatar. A fine choice, if I may say so."}
+        ],
+        "element": "#"
+      },
+      {
         "id": 12,
         "dialogue": [
             {"bubble": "And this fine mighty creature is like my long robes on the floor...dragon"},
@@ -27,6 +37,13 @@
             {"bubble": "They key element to win is to predict what combatant your adversary will send out, what spell he will throw at you."}, 
             {"bubble": "You must be able to read your opponent's mind like a book and outsmart them."}, 
             {"bubble": "But don't worry, I'll be here to guide you through the process. I have schooled many fine conquerors before. You'll be a master in no time."}
+        ],
+        "element": "#"
+      },
+      {
+        "id": 20,
+        "dialogue": [
+            {"bubble": "Duude, that is so not "}
         ],
         "element": "#"
       }

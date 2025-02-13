@@ -266,6 +266,19 @@ app.post('/reject-friend-request', authenticateToken, async (req, res) => {
   }
 });
 
+app.get('/friends', authenticateToken, async (req, res) => {
+  try {
+    const result = await db.query(
+      'SELECT u.user_id, u.username FROM friendlist f JOIN usr u ON f.user2 = u.user_id WHERE f.user1 = $1 AND f.friend_status = $2',
+      [req.user.id, 'accepted']
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving friends');
+  }
+});
+
 const runSetupScript = (scriptName) => {
   return new Promise((resolve, reject) => {
     const scriptPath = path.join(__dirname, 'db', scriptName);
